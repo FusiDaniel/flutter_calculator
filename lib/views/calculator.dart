@@ -13,7 +13,6 @@ class Calculator extends StatefulWidget {
 
 class _CalculatorState extends State<Calculator> {
   final Memory memory = Memory();
-
   void _onPressed(String command) {
     setState(() {
       memory.applyCommand(command);
@@ -23,18 +22,42 @@ class _CalculatorState extends State<Calculator> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    List<String> allowedKeys = List.generate(10, (index) => index.toString()) +
+        ['Add', 'Subtract', 'Multiply', 'Divide', 'Decimal', 'Enter'];
 
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: Column(
-          children: [
-            Display(
-              text: memory.value,
+        home: RawKeyboardListener(
+          autofocus: true,
+          focusNode: FocusNode(),
+          onKey: (event) {
+            String pressed =
+                event.logicalKey.keyLabel.replaceAll('Numpad ', '');
+            if (event is RawKeyUpEvent) {
+              if (pressed == 'Enter') {
+                _onPressed('=');
+              } else if (pressed == 'Backspace') {
+                _onPressed('AC');
+              } else if (allowedKeys.contains(pressed)) {
+                _onPressed(pressed);
+              } else {
+                print(event.logicalKey.keyLabel);
+              }
+            }
+          },
+          child: Scaffold(
+            backgroundColor: Colors.black,
+            body: Column(
+              children: [
+                Display(
+                  controller: memory.controller,
+                ),
+                Keyboard(
+                  cb: _onPressed,
+                )
+              ],
             ),
-            Keyboard(
-              cb: _onPressed,
-            )
-          ],
+          ),
         ));
   }
 }

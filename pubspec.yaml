@@ -39,6 +39,7 @@ dependencies:
   auto_size_text: ^3.0.0
   google_fonts: ^3.0.1
   math_expressions: ^2.3.1
+  auto_size_text_field: ^2.1.0
 
 dev_dependencies:
   flutter_test:
