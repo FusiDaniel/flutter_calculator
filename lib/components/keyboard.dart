@@ -34,7 +34,7 @@ class Keyboard extends StatelessWidget {
             cb: cb,
           ),
           ButtonRow(
-            buttonsText: const ['0', '00', ',', '='],
+            buttonsText: const ['0', '00', '.', '='],
             type: const ['', '', '', 'o'],
             cb: cb,
           ),

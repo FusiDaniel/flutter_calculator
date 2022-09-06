@@ -12,7 +12,7 @@ class Display extends StatelessWidget {
     return Expanded(
         flex: 1,
         child: Padding(
-          padding: const EdgeInsets.only(bottom: 2),
+          padding: const EdgeInsets.only(bottom: 1),
           child: Container(
             color: const Color.fromARGB(255, 48, 48, 48),
             child: Column(

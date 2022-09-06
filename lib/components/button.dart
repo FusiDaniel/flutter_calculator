@@ -18,12 +18,12 @@ class Button extends StatelessWidget {
     return Expanded(
         flex: flexSize ?? 1,
         child: Padding(
-          padding: const EdgeInsets.all(2),
+          padding: const EdgeInsets.all(1),
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                   backgroundColor: color,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0))),
+                      borderRadius: BorderRadius.circular(3))),
               onPressed: () {
                 cb(text);
               },
