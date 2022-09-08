@@ -1,13 +1,12 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Display extends StatelessWidget {
-
+  final FocusNode focusNode;
   final TextEditingController controller;
 
-  const Display({super.key, required this.controller});
+  const Display({super.key, required this.controller, required this.focusNode});
 
   @override
   Widget build(BuildContext context) {
@@ -22,20 +21,30 @@ class Display extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: AutoSizeTextField(
-                    controller: controller,
-                    minFontSize: 20,
-                    maxLines: 1,
-                    decoration: InputDecoration(border: InputBorder.none, ),
-                    textAlign: TextAlign.end,
-                    style: GoogleFonts.roboto(
-                        fontWeight: FontWeight.w200,
-                        decoration: TextDecoration.none,
-                        color: Colors.white,
-                        fontSize: 80),
-                  )
-                ),
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        AutoSizeTextField(
+                          focusNode: focusNode,
+                          readOnly: true,
+                          showCursor: true,
+                          cursorColor: Colors.white,
+                          controller: controller,
+                          minFontSize: 50,
+                          minLines: 1,
+                          maxLines: 3,
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                          ),
+                          textAlign: TextAlign.end,
+                          style: GoogleFonts.roboto(
+                              fontWeight: FontWeight.w200,
+                              decoration: TextDecoration.none,
+                              color: Colors.white,
+                              fontSize: 100),
+                        ),
+                      ],
+                    )),
               ],
             ),
           ),

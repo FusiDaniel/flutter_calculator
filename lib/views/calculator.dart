@@ -12,9 +12,11 @@ class Calculator extends StatefulWidget {
 }
 
 class _CalculatorState extends State<Calculator> {
+  final FocusNode focusNode = FocusNode();
   final Memory memory = Memory();
   void _onPressed(String command) {
     setState(() {
+      focusNode.requestFocus();
       memory.applyCommand(command);
     });
   }
@@ -36,12 +38,14 @@ class _CalculatorState extends State<Calculator> {
             if (event is RawKeyUpEvent) {
               if (pressed == 'Enter') {
                 _onPressed('=');
-              } else if (pressed == 'Backspace') {
+              } else if (pressed == 'Delete') {
                 _onPressed('AC');
+              } else if (pressed == 'Backspace') {
+                _onPressed('Backspace');
               } else if (allowedKeys.contains(pressed)) {
                 _onPressed(pressed);
               } else {
-                print(event.logicalKey.keyLabel);
+                print('invalid key: ${event.logicalKey.keyLabel}');
               }
             }
           },
@@ -50,6 +54,7 @@ class _CalculatorState extends State<Calculator> {
             body: Column(
               children: [
                 Display(
+                  focusNode: focusNode,
                   controller: memory.controller,
                 ),
                 Keyboard(

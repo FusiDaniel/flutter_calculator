@@ -1,10 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 class Memory {
   String _lastExpression = '';
   // String _value = '0';
-  TextEditingController _value = TextEditingController(text: '0');
+  TextEditingController _value = TextEditingController(text: '555');
 
   TextEditingController get controller {
     return _value;
@@ -17,6 +19,35 @@ class Memory {
   void applyCommand(String command) {
     if (command == 'AC') {
       allClear();
+    } else if (command == 'Backspace') {
+      var cursorPos = controller.selection.base.offset != -1
+            ? controller.selection.base.offset
+            : _value.text.length;
+      int init = min(
+          controller.selection.baseOffset, controller.selection.extentOffset);
+      int end = max(
+          controller.selection.baseOffset, controller.selection.extentOffset);
+      if (end - init == _value.text.length) {
+          allClear();
+        }
+      else if (end > 0) {
+         if (end == init) {
+          _value.text =
+              _value.text.substring(0, init-1) +
+                  _value.text.substring(end);
+          controller.selection =
+            TextSelection.fromPosition(TextPosition(offset: cursorPos-1));
+          
+        } else {
+          _value.text =
+              _value.text.substring(0, init) +
+                  _value.text.substring(end);
+          controller.selection =
+            TextSelection.fromPosition(TextPosition(offset: init));
+        } 
+        
+      }
+      
     } else if (command == '=') {
       if (isDigit(_value.text)) {
         _value.text = _value.text + _lastExpression;
@@ -30,13 +61,21 @@ class Memory {
           _value.text = command;
         }
       } else {
-        _value.text = (_value.text +
+        // print('i: ${controller.selection.base.offset}');
+        var cursorPos = controller.selection.base.offset != -1
+            ? controller.selection.base.offset
+            : _value.text.length;
+        _value.text = (_value.text.substring(0, cursorPos) +
             command
                 .replaceAll('Add', '+')
                 .replaceAll('Subtract', '-')
                 .replaceAll('Multiply', 'x')
                 .replaceAll('Divide', '÷')
-                .replaceAll('Decimal', '.'));
+                .replaceAll('Decimal', '.') +
+            _value.text.substring(cursorPos));
+        // print('e: ${controller.selection.base.offset}');
+        controller.selection =
+            TextSelection.fromPosition(TextPosition(offset: cursorPos + 1));
       }
     }
     // updateLastExpression();
@@ -56,8 +95,8 @@ class Memory {
     // print('value: $_value.text');
     // print('n: $n');
     RegExp reg = RegExp(r'[0-9]+(\.)?[0-9]*');
-    print('s ${reg.stringMatch(_value.text.substring(n))}');
-    print('b ${_value.text.substring(n)}');
+    // print('s ${reg.stringMatch(_value.text.substring(n))}');
+    // print('b ${_value.text.substring(n)}');
     if (reg.stringMatch(_value.text.substring(n)) != _value.text.substring(n)) {
       _lastExpression = _value.text.substring(n);
     }
@@ -73,7 +112,6 @@ class Memory {
     Expression exp =
         p.parse(_value.text.replaceAll('x', '*').replaceAll('÷', '/'));
     double eval = exp.evaluate(EvaluationType.REAL, ContextModel());
-    // print(eval);
     _value.text = removeZeros(eval.toString());
   }
 

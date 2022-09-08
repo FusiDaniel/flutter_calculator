@@ -14,3 +14,18 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+# Knwon Issues
+- 00 breaks cursor
+- Very high doubles print as in exponential format, like: 2e+15, and it breakes the solver
+-
+
+# To do
+- %
+- implement a way to edit buttons
+- add AD space
+- History
+- Easy copy button
+- Result preview (save it to history too)
+- 
