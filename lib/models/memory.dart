@@ -6,7 +6,7 @@ import 'package:math_expressions/math_expressions.dart';
 class Memory {
   String _lastExpression = '';
   // String _value = '0';
-  TextEditingController _value = TextEditingController(text: '555');
+  TextEditingController _value = TextEditingController(text: '0');
 
   TextEditingController get controller {
     return _value;
@@ -21,40 +21,41 @@ class Memory {
       allClear();
     } else if (command == 'Backspace') {
       var cursorPos = controller.selection.base.offset != -1
-            ? controller.selection.base.offset
-            : _value.text.length;
+          ? controller.selection.base.offset
+          : _value.text.length;
+      print(cursorPos);
       int init = min(
           controller.selection.baseOffset, controller.selection.extentOffset);
       int end = max(
           controller.selection.baseOffset, controller.selection.extentOffset);
       if (end - init == _value.text.length) {
-          allClear();
-        }
-      else if (end > 0) {
-         if (end == init) {
+        allClear();
+      } else if (end > 0) {
+        if (end == init) {
           _value.text =
-              _value.text.substring(0, init-1) +
-                  _value.text.substring(end);
+              _value.text.substring(0, init - 1) + _value.text.substring(end);
           controller.selection =
-            TextSelection.fromPosition(TextPosition(offset: cursorPos-1));
-          
+              TextSelection.fromPosition(TextPosition(offset: cursorPos - 1));
         } else {
           _value.text =
-              _value.text.substring(0, init) +
-                  _value.text.substring(end);
+              _value.text.substring(0, init) + _value.text.substring(end);
           controller.selection =
-            TextSelection.fromPosition(TextPosition(offset: init));
-        } 
-        
+              TextSelection.fromPosition(TextPosition(offset: init));
+        }
       }
-      
+      if (_value.text == "") {
+        allClear();
+      }
     } else if (command == '=') {
       if (isDigit(_value.text)) {
         _value.text = _value.text + _lastExpression;
       }
       updateLastExpression();
+       
       // print(_lastExpression);
       solve();
+      controller.selection =
+              TextSelection.fromPosition(TextPosition(offset: _value.text.length));
     } else {
       if (_value.text == '0') {
         if (isDigit(command)) {
@@ -75,7 +76,7 @@ class Memory {
             _value.text.substring(cursorPos));
         // print('e: ${controller.selection.base.offset}');
         controller.selection =
-            TextSelection.fromPosition(TextPosition(offset: cursorPos + 1));
+            TextSelection.fromPosition(TextPosition(offset: cursorPos + command.length));
       }
     }
     // updateLastExpression();

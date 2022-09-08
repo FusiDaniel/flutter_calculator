@@ -13,7 +13,7 @@ class Keyboard extends StatelessWidget {
       child: Column(
         children: [
           ButtonRow(
-            buttonsText: const ['AC', '%', '÷'],
+            buttonsText: const ['Backspace', '%', '÷'],
             flexSizes: const [2, 1, 1],
             type: const ['d', 'd', 'o'],
             cb: cb,

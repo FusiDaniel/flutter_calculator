@@ -17,11 +17,17 @@ samples, guidance on mobile development, and a full API reference.
 
 
 # Knwon Issues
-- 00 breaks cursor
-- Very high doubles print as in exponential format, like: 2e+15, and it breakes the solver
--
+- can't type an expression that starts with a floating number
+- start expression with 00 doesnt make sense 
+- Very high doubles prints in exponential format, like: 2e+15, and it breakes the solver
+- if you select something and press a key, it doesnt substitute the selection by the key
+- values that goes to infinity are rounded, and doesn't combine back to non infinte long values
+- 
 
 # To do
+- AC button (press to backspace, hold to del)
+
+- ()
 - %
 - implement a way to edit buttons
 - add AD space
