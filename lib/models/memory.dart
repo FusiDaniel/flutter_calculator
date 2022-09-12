@@ -47,7 +47,6 @@ class Memory {
         allClear();
       }
     } else if (command == '=') {
-
       if (isDigit(_value.text)) {
         _value.text = _value.text + _lastExpression;
       }
@@ -105,6 +104,25 @@ class Memory {
         }
         controller.selection =
             TextSelection.fromPosition(TextPosition(offset: cursorPos + cnt));
+      } else {
+        String construction = _value.text.substring(0, init);
+        if (init == 0 || !isDigit(_value.text[init-1])) {
+          construction += '(';
+        } else {
+          construction += 'x(';
+        }
+
+        construction += _value.text.substring(init, end);
+
+        if (end == _value.text.length || !isDigit(_value.text[end])) {
+          construction += ')';
+        } else {
+          construction += ')x';
+        }
+
+        _value.text = construction + _value.text.substring(end);
+        controller.selection =
+            TextSelection.fromPosition(TextPosition(offset: end + 2));
       }
     } else {
       if (_value.text == '0') {
@@ -155,7 +173,8 @@ class Memory {
   }
 
   void solve() {
-    if (!isDigit(_value.text[_value.text.length - 1]) && _value.text[_value.text.length - 1] != ')') {
+    if (!isDigit(_value.text[_value.text.length - 1]) &&
+        _value.text[_value.text.length - 1] != ')') {
       _value.text = _value.text.substring(0, _value.text.length - 1);
     }
     Parser p = Parser();

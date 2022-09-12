@@ -40,6 +40,8 @@ dependencies:
   google_fonts: ^3.0.1
   math_expressions: ^2.3.1
   auto_size_text_field: ^2.1.0
+  window_size:
+    path: ../flutter-desktop-embedding-main/plugins/window_size
 
 dev_dependencies:
   flutter_test:
@@ -51,6 +53,20 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.10.0
+
+
+flutter_icons:
+  image_path_android: "assets/icon/icon.png"
+  image_path_ios: "assets/icon/icon.png"
+  android: true
+  ios: true
+  web:
+    generate: true
+    image_path: "assets/icon/icon.png"
+  windows:
+    generate: true
+    image_path: "assets/icon/icon.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -17,16 +17,14 @@ samples, guidance on mobile development, and a full API reference.
 
 
 # Knwon Issues
+- operations are staking instead of being substituted
+- text doesn't resize in some devices
 - Very high doubles prints in exponential format, like: 2e+15, and it breakes the solver
-- if you select something and press a key, it doesnt substitute the selection by the key
 - values that goes to infinity are rounded, and doesn't combine back to non infinte long values (or maybe it's not a problem)
 
 
 # To do
-- AC button (press to backspace, hold to del)
 - refactoring FisicalKeyboardListener
-- ()
-- %
 - implement a way to edit buttons
 - add AD space
 - History
