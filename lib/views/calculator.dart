@@ -4,6 +4,8 @@ import 'package:flutter_calculator/components/display.dart';
 import 'package:flutter_calculator/components/keyboard.dart';
 import 'package:flutter_calculator/models/memory.dart';
 
+import '../models/fisical_keyboard.dart';
+
 class Calculator extends StatefulWidget {
   const Calculator({super.key});
 
@@ -14,7 +16,7 @@ class Calculator extends StatefulWidget {
 class _CalculatorState extends State<Calculator> {
   final FocusNode focusNode = FocusNode();
   final Memory memory = Memory();
-  void _onPressed(String command) {
+  void onPressed(String command) {
     setState(() {
       focusNode.requestFocus();
       memory.applyCommand(command);
@@ -24,33 +26,16 @@ class _CalculatorState extends State<Calculator> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    List<String> allowedKeys = List.generate(10, (index) => index.toString()) +
-        ['Add', 'Subtract', 'Multiply', 'Divide', 'Decimal', 'Enter'];
 
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: RawKeyboardListener(
-          autofocus: true,
+        home: FisicalKeyboardListener(
+          cb: onPressed,
+          memory: memory,
+          xautofocus: true,
           focusNode: FocusNode(),
-          onKey: (event) {
-            String pressed =
-                event.logicalKey.keyLabel.replaceAll('Numpad ', '');
-            if (event is RawKeyUpEvent) {
-              if (pressed == 'Enter') {
-                _onPressed('=');
-              } else if (pressed == 'Delete') {
-                _onPressed('AC');
-              } else if (pressed == 'Backspace') {
-                _onPressed('Backspace');
-              } else if (allowedKeys.contains(pressed)) {
-                _onPressed(pressed);
-              } else {
-                print('invalid key: ${event.logicalKey.keyLabel}');
-              }
-            }
-          },
           child: Scaffold(
-            backgroundColor: Colors.black,
+            backgroundColor: Colors.grey,
             body: Column(
               children: [
                 Display(
@@ -58,7 +43,7 @@ class _CalculatorState extends State<Calculator> {
                   controller: memory.controller,
                 ),
                 Keyboard(
-                  cb: _onPressed,
+                  cb: onPressed,
                 )
               ],
             ),

@@ -51,16 +51,3 @@ class Display extends StatelessWidget {
         ));
   }
 }
-
-
-// AutoSizeText(
-//                     text,
-//                     minFontSize: 20,
-//                     maxFontSize: 80,
-//                     maxLines: 1,
-//                     textAlign: TextAlign.end,
-//                     style: GoogleFonts.roboto(
-//                         fontWeight: FontWeight.w200,
-//                         decoration: TextDecoration.none,
-//                         color: Colors.white),
-//                   ),

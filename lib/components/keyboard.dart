@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_calculator/components/button.dart';
 import 'package:flutter_calculator/components/button_row.dart';
 
 class Keyboard extends StatelessWidget {
@@ -8,35 +9,49 @@ class Keyboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 500,
       child: Column(
         children: [
           ButtonRow(
-            buttonsText: const ['Backspace', '%', '÷'],
-            flexSizes: const [2, 1, 1],
-            type: const ['d', 'd', 'o'],
-            cb: cb,
+            buttons: [
+              Button.special(text: 'C/AC', cb: cb, primaryFunction: 'C', secondaryFunction: 'AC',),
+              Button.special(text: '( )', cb: cb),
+              Button.special(text: '%', cb: cb),
+              Button.function(text: '÷', cb: cb),
+            ],
           ),
           ButtonRow(
-            buttonsText: const ['7', '8', '9', 'x'],
-            type: const ['', '', '', 'o'],
-            cb: cb,
+            buttons: [
+              Button(text: '7', cb: cb),
+              Button(text: '8', cb: cb),
+              Button(text: '9', cb: cb),
+              Button.function(text: 'x', cb: cb),
+            ],
           ),
           ButtonRow(
-            buttonsText: const ['4', '5', '6', '-'],
-            type: const ['', '', '', 'o'],
-            cb: cb,
+            buttons: [
+              Button(text: '4', cb: cb),
+              Button(text: '5', cb: cb),
+              Button(text: '6', cb: cb),
+              Button.function(text: '-', cb: cb),
+            ],
           ),
           ButtonRow(
-            buttonsText: const ['1', '2', '3', '+'],
-            type: const ['', '', '', 'o'],
-            cb: cb,
+            buttons: [
+              Button(text: '1', cb: cb),
+              Button(text: '2', cb: cb),
+              Button(text: '3', cb: cb),
+              Button.function(text: '+', cb: cb),
+            ],
           ),
           ButtonRow(
-            buttonsText: const ['0', '00', '.', '='],
-            type: const ['', '', '', 'o'],
-            cb: cb,
+            buttons: [
+              Button(text: '0', cb: cb),
+              Button(text: '00', cb: cb),
+              Button(text: '.', cb: cb),
+              Button.function(text: '=', cb: cb),
+            ],
           ),
         ],
       ),
